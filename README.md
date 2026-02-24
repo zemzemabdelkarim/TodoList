@@ -1,2 +1,2 @@
-# TodoList-SpringBoot-api
-A todo list api
+# TodoList
+A todo list app
