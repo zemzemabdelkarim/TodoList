@@ -1,0 +1,31 @@
+# -------- Maven / Java --------
+api/target/
+api/*.log
+api/*.class
+api/*.jar
+api/*.war
+api/*.iml
+api/*.ipr
+api/*.iws
+
+# -------- IDEs --------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# -------- OS --------
+.DS_Store
+Thumbs.db
+
+# -------- Docker --------
+*.tar
+docker-compose.override.yml
+api/*.tar
+api/docker-compose.override.yml
+
+# -------- Environment / Secrets --------
+api/.env
+api/.env.local
+api/application.properties
+api/application-*.yml
