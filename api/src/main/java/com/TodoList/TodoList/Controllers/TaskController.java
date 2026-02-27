@@ -2,6 +2,7 @@ package com.TodoList.TodoList.Controllers;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import com.TodoList.TodoList.Services.TaskService;
 
 @RestController
 @RequestMapping("api/v1/Tasks")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TaskController {
     private final TaskService taskService;
     
