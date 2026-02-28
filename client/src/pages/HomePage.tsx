@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react"
 import type { Task } from "../types/Task";
 import { getTasks } from "../api/todoApi";
+import AddTask from "../components/AddTask";
 
 export default function HomePage() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [showAddTask, setShowAddTask] = useState<boolean>(false);
   const [error, setError] = useState<String | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -26,7 +28,7 @@ export default function HomePage() {
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="text-primary m-0">Todo App</h1>
-        <button className="btn btn-success">Add Task</button>
+        <button onClick={() => {setShowAddTask(true);}} className="btn btn-success">Add Task</button>
       </div>
 
       {loading && (<div className="alert alert-info">Loading tasks...</div>)}
@@ -46,6 +48,9 @@ export default function HomePage() {
           </div>
         ))}
       </div>
+      {showAddTask && (
+        <AddTask onClose={() => {setShowAddTask(false)}} />
+      )}
     </div>
   )
 }
