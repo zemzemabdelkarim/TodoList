@@ -10,17 +10,17 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String task;
+    private String title;
     private boolean isDone;
 
     public Task(){}
-    public Task(Integer id, String task, boolean isDone){
+    public Task(Integer id, String title, boolean isDone){
         this.id = id;
-        this.task = task;
+        this.title= title;
         this.isDone = isDone;
     }
-    public Task(String task){
-        this.task = task;
+    public Task(String title){
+        this.title= title;
         this.isDone = false;
     }
 
@@ -30,16 +30,16 @@ public class Task {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getTask() {
-        return task;
+    public String getTitle() {
+        return title;
     }
-    public void setTask(String task) {
-        this.task = task;
+    public void setTitle(String title) {
+        this.title= title;
     }
     public boolean isDone() {
         return isDone;
     }
-    public void setDone(boolean isDone) {
+    public void setIsDone(boolean isDone) {
         this.isDone = isDone;
     }
 

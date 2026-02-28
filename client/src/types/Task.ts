@@ -1,5 +1,5 @@
 export interface Task {
     id: number,
-    task: String,
+    title: String,
     isDone: boolean,
 }
