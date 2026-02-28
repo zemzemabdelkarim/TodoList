@@ -9,6 +9,7 @@ export default function HomePage() {
   const [showAddTask, setShowAddTask] = useState<boolean>(false);
   const [error, setError] = useState<String | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [reload, setReload] = useState<boolean>(true);
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -21,9 +22,12 @@ export default function HomePage() {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     fetchTasks();
-  }, []);
+    setReload(false);
+  }, [reload]);
+
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -49,7 +53,7 @@ export default function HomePage() {
         ))}
       </div>
       {showAddTask && (
-        <AddTask onClose={() => {setShowAddTask(false)}} />
+        <AddTask onClose={() => {setShowAddTask(false)}} setReload={() => {setReload(true)}} />
       )}
     </div>
   )

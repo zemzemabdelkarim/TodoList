@@ -1,17 +1,39 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, } from "react"
+import { addTask } from "../api/todoApi";
+import type { ResponseMessage } from "../types/ResponseMessage";
 
 type Props = {
-  onClose: () => void
+  onClose: () => void,
+  setReload: () => void
 }
 
-export default function AddTask({ onClose }: Props) {
+export default function AddTask({ onClose, setReload }: Props) {
   const [title, setTitle] = useState<String>("");
-  
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<String | null>(null);
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   }
 
-  useEffect(()=>{console.log("title: ", title)}, [title])
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const data: ResponseMessage = await addTask(title);
+      if (data.success) {
+        setReload();
+        onClose();
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      setError("can not add task!");
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => { console.log("title: ", title) }, [title])
 
   return (
     <>
@@ -27,32 +49,43 @@ export default function AddTask({ onClose }: Props) {
                 onClick={onClose}
               />
             </div>
+            <form onSubmit={handleSubmit}>
+              <div className="modal-body">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter task title..."
+                  onChange={handleTitleChange}
+                  autoFocus
+                />
+              </div>
 
-            <div className="modal-body">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter task title..."
-                onChange={handleTitleChange}
-                autoFocus
-              />
-            </div>
+              <div className="modal-footer">
+                <button
+                  className="btn btn-secondary"
+                  onClick={onClose}
+                >
+                  Cancel
+                </button>
 
-            <div className="modal-footer">
-              <button
-                className="btn btn-secondary"
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="btn btn-primary"
-              >
-                Save
-              </button>
-            </div>
-
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+            {loading && (
+              <div className="d-flex justify-content-center align-items-center">
+                <p className="text-primary">Loading ...</p>
+              </div>
+            )}
+            {error && (
+              <div className="d-flex justify-content-center align-items-center">
+                <p className="text-danger">{error}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
