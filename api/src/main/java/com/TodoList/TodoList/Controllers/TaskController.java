@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.TodoList.TodoList.Models.ResponseMessage;
 import com.TodoList.TodoList.Models.Task;
 import com.TodoList.TodoList.Services.TaskService;
 
@@ -28,7 +29,8 @@ public class TaskController {
     }
     
     @PostMapping
-    public void createTask(@RequestBody Task task){
+    public ResponseMessage createTask(@RequestBody Task task){
         taskService.createTask(task);
+        return new ResponseMessage(200, "Task created successfully!", true);
     }
 }
