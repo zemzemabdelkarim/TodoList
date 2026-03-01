@@ -28,32 +28,72 @@ export default function HomePage() {
     setReload(false);
   }, [reload]);
 
+  useEffect(() => {console.log(tasks);},[tasks])
   return (
-    <div className="container mt-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="text-primary m-0">Todo App</h1>
-        <button onClick={() => {setShowAddTask(true);}} className="btn btn-success">Add Task</button>
+    <div className="max-w-6xl mx-auto px-4 py-10">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold text-blue-600">
+          Todo App
+        </h1>
+
+        <button
+          onClick={() => setShowAddTask(true)}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow transition"
+        >
+          Add Task
+        </button>
       </div>
 
-      {loading && (<div className="alert alert-info">Loading tasks...</div>)}
-      {error && (<div className="alert alert-danger">{error}</div>)}
+      {/* Loading */}
+      {loading && (
+        <div className="bg-blue-100 text-blue-700 px-4 py-3 rounded-lg mb-4">
+          Loading tasks...
+        </div>
+      )}
 
-      <div className="row">
-        {tasks.map((task) => (
-          <div className="col-md-4 col-lg-4 mb-4" key={task.id}>
-            <div className="card shadow-sm h-100">
-              <div className="card-body">
-                <h5 className="card-title">{task.title}</h5>
-                <span className={`badge ${task.isDone ? "bg-success" : "bg-worning text-dark"}`}>
-                  {task.isDone ? "Done": "Still on it"}
-                </span>
-              </div>
+      {/* Error */}
+      {error && (
+        <div className="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-4">
+          {error}
+        </div>
+      )}
+
+      {/* Task List */}
+      <div className="space-y-3">
+        {tasks.map((task, index) => (
+          <div
+            key={task.id}
+            className="flex items-center gap-4 bg-white px-5 py-4 rounded-xl shadow-sm hover:shadow-md transition"
+          >
+            {/* Number Circle */}
+            <div
+              className={`flex items-center justify-center w-8 h-8 text-sm font-semibold rounded-full transition
+          ${task.done
+                  ? "bg-green-100 text-green-700"
+                  : "bg-blue-100 text-blue-700"
+                }`}
+            >
+              {index + 1}
             </div>
+
+            {/* Title */}
+            <h5
+              className={`text-gray-800 font-medium transition ${task.done ? "line-through text-gray-400" : ""
+                }`}
+            >
+              {task.title}
+            </h5>
           </div>
         ))}
       </div>
+
+      {/* Drawer */}
       {showAddTask && (
-        <AddTask onClose={() => {setShowAddTask(false)}} setReload={() => {setReload(true)}} />
+        <AddTask
+          onClose={() => setShowAddTask(false)}
+          setReload={() => setReload(true)}
+        />
       )}
     </div>
   )

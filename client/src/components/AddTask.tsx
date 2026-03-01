@@ -37,60 +37,74 @@ export default function AddTask({ onClose, setReload }: Props) {
 
   return (
     <>
-      <div className="modal fade show d-block" tabIndex={-1}>
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content shadow">
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+        onClick={onClose}
+      >
+        {/* Modal Card */}
+        <div
+          className="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 relative animate-fadeIn"
+          onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-gray-800">
+              Add New Task
+            </h2>
 
-            <div className="modal-header">
-              <h5 className="modal-title">Add New Task</h5>
+            <button
+              type="button"
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 text-xl"
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Enter task title..."
+              onChange={handleTitleChange}
+              autoFocus
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+
+            <div className="flex justify-end gap-3">
               <button
                 type="button"
-                className="btn-close"
                 onClick={onClose}
-              />
+                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+              >
+                Save
+              </button>
             </div>
-            <form onSubmit={handleSubmit}>
-              <div className="modal-body">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter task title..."
-                  onChange={handleTitleChange}
-                  autoFocus
-                />
-              </div>
+          </form>
 
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={onClose}
-                >
-                  Cancel
-                </button>
+          {/* Loading */}
+          {loading && (
+            <div className="mt-4 text-center text-blue-600 font-medium">
+              Loading...
+            </div>
+          )}
 
-                <button
-                  className="btn btn-primary"
-                  type="submit"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-            {loading && (
-              <div className="d-flex justify-content-center align-items-center">
-                <p className="text-primary">Loading ...</p>
-              </div>
-            )}
-            {error && (
-              <div className="d-flex justify-content-center align-items-center">
-                <p className="text-danger">{error}</p>
-              </div>
-            )}
-          </div>
+          {/* Error */}
+          {error && (
+            <div className="mt-4 text-center text-red-600 font-medium">
+              {error}
+            </div>
+          )}
         </div>
       </div>
-
-      <div className="modal-backdrop fade show"></div>
     </>
   )
 }
