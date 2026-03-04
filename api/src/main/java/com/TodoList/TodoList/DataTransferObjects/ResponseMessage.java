@@ -1,4 +1,4 @@
-package com.TodoList.TodoList.Models;
+package com.TodoList.TodoList.DataTransferObjects;
 
 public class ResponseMessage {
     private int status;

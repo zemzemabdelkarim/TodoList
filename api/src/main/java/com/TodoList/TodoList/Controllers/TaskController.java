@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TodoList.TodoList.Models.ResponseMessage;
+import com.TodoList.TodoList.DataTransferObjects.ResponseMessage;
 import com.TodoList.TodoList.Models.Task;
 import com.TodoList.TodoList.Services.TaskService;
 
