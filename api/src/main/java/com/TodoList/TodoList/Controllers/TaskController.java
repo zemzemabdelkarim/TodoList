@@ -14,7 +14,7 @@ import com.TodoList.TodoList.Models.Task;
 import com.TodoList.TodoList.Services.TaskService;
 
 @RestController
-@RequestMapping("api/v1/Tasks")
+@RequestMapping("api/v1/tasks")
 @CrossOrigin(origins = "http://localhost:5173")
 public class TaskController {
     private final TaskService taskService;
