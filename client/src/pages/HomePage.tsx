@@ -28,10 +28,10 @@ export default function HomePage() {
     setReload(false);
   }, [reload]);
 
-  useEffect(() => {console.log(tasks);},[tasks])
-  return (
+  useEffect(() => { console.log(tasks); }, [tasks])
+  /*return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      {/* Header */}
+      {/* Header *}
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-blue-600">
           Todo App
@@ -45,28 +45,28 @@ export default function HomePage() {
         </button>
       </div>
 
-      {/* Loading */}
+      {/* Loading *}
       {loading && (
         <div className="bg-blue-100 text-blue-700 px-4 py-3 rounded-lg mb-4">
           Loading tasks...
         </div>
       )}
 
-      {/* Error */}
+      {/* Error *}
       {error && (
         <div className="bg-red-100 text-red-700 px-4 py-3 rounded-lg mb-4">
           {error}
         </div>
       )}
 
-      {/* Task List */}
+      {/* Task List *}
       <div className="space-y-3">
         {tasks.map((task, index) => (
           <div
             key={task.id}
             className="flex items-center gap-4 bg-white px-5 py-4 rounded-xl shadow-sm hover:shadow-md transition"
           >
-            {/* Number Circle */}
+            {/* Number Circle *}
             <div
               className={`flex items-center justify-center w-8 h-8 text-sm font-semibold rounded-full transition
           ${task.done
@@ -77,7 +77,7 @@ export default function HomePage() {
               {index + 1}
             </div>
 
-            {/* Title */}
+            {/* Title *}
             <h5
               className={`text-gray-800 font-medium transition ${task.done ? "line-through text-gray-400" : ""
                 }`}
@@ -88,13 +88,111 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Drawer */}
+      {/* Drawer *}
       {showAddTask && (
         <AddTask
           onClose={() => setShowAddTask(false)}
           setReload={() => setReload(true)}
         />
       )}
+    </div>
+  )*/
+  return (
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-md px-8 py-8">
+
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Todo App
+          </h1>
+
+          <button
+            onClick={() => setShowAddTask(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg shadow-sm transition font-medium"
+          >
+            + Add Task
+          </button>
+        </div>
+
+        {/* Loading */}
+        {loading && (
+          <div className="bg-blue-50 text-blue-700 px-4 py-3 rounded-lg mb-4">
+            Loading tasks...
+          </div>
+        )}
+
+        {/* Error */}
+        {error && (
+          <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg mb-4">
+            {error}
+          </div>
+        )}
+
+        {/* Task List */}
+        <div className="space-y-3">
+          {tasks.map((task, index) => (
+            <div
+              key={task.id}
+              className="flex items-center justify-between bg-gray-50 px-5 py-4 rounded-xl border border-gray-100 hover:shadow-sm transition"
+            >
+              {/* Left section */}
+              <div className="flex items-center gap-4">
+
+                {/* Number Circle */}
+                <div
+                  className={`flex items-center justify-center w-8 h-8 text-sm font-semibold rounded-full
+              ${task.done
+                      ? "bg-green-100 text-green-700"
+                      : "bg-blue-100 text-blue-700"
+                    }`}
+                >
+                  {index + 1}
+                </div>
+
+                {/* Title */}
+                <h5
+                  className={`text-gray-800 font-medium ${task.done
+                    ? "line-through text-gray-400"
+                    : ""
+                    }`}
+                >
+                  {task.title}
+                </h5>
+
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2">
+
+                {/* Done Button */}
+                <button
+                  className="px-3 py-1.5 text-sm rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition"
+                >
+                  ✓ Done
+                </button>
+
+                {/* Delete Button */}
+                <button
+                  className="px-3 py-1.5 text-sm rounded-lg bg-red-100 text-red-700 hover:bg-red-200 transition"
+                >
+                  Delete
+                </button>
+
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Drawer */}
+        {showAddTask && (
+          <AddTask
+            onClose={() => setShowAddTask(false)}
+            setReload={() => setReload(true)}
+          />
+        )}
+
+      </div>
     </div>
   )
 }
