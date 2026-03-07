@@ -1,0 +1,4 @@
+export type User = {
+    email: String,
+    username: String
+}
