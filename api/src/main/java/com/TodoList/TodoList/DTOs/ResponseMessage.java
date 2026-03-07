@@ -1,4 +1,4 @@
-package com.TodoList.TodoList.DataTransferObjects;
+package com.TodoList.TodoList.DTOs;
 
 public class ResponseMessage {
     private int status;
