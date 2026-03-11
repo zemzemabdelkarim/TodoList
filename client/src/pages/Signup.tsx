@@ -4,9 +4,13 @@ import { Link } from "react-router-dom"
 import type { CreateUserRequest } from "../types/DTO/CreateUserRequest"
 import { createAccount } from "../api/userAuth";
 import type { User } from "../types/User";
+//import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 export default function Signup() {
 
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState<CreateUserRequest>({
     email: "",
     username: "",
@@ -21,6 +25,7 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data: User = await createAccount(formData);
+    dispatch(setUser(data));
     console.log("res data :  ",data)
   }
 

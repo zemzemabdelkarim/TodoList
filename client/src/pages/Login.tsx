@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
+import type { User } from "../types/User";
+import { useEffect, useState, type ChangeEvent } from "react";
+// I was going to test redux in Sign up please fix this
 
 export default function Login() {
+  const [formData, setFormData] = useState<User>({
+    id: -2,
+    username: "",
+    email: "",
+  });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFormData({...formData, [e.target.id as keyof User]: e.target.value});
+  }
+
+  useEffect(() => {console.log("FormData =  ", formData)}, [formData]);
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
 
@@ -22,7 +36,7 @@ export default function Login() {
         </div>
 
         {/* Form */}
-        <div className="space-y-5">
+        <form className="space-y-5">
 
           {/* Email */}
           <div>
@@ -32,6 +46,8 @@ export default function Login() {
 
             <input
               type="email"
+              id="email"
+              onChange={handleInputChange}
               placeholder="you@example.com"
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
             />
@@ -45,6 +61,8 @@ export default function Login() {
 
             <input
               type="password"
+              id="password"
+              onChange={handleInputChange}
               placeholder="Enter your password"
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
             />
@@ -57,7 +75,7 @@ export default function Login() {
             Sign In
           </button>
 
-        </div>
+        </form>
 
         {/* Footer */}
         <div className="mt-6 text-center text-sm text-gray-500">
