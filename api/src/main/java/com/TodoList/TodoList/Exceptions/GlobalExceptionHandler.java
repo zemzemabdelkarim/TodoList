@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.TodoList.TodoList.DTOs.ErrorResponse;
+import com.TodoList.TodoList.DTOs.responses.ErrorResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -43,6 +43,16 @@ public class GlobalExceptionHandler {
             // attrs
             new ErrorResponse(ex.getMessage(), 409),
             HttpStatus.CONFLICT
+        );
+    }
+    
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(
+        UserNotFoundException ex
+    ){
+        return new ResponseEntity<>(
+            new ErrorResponse(ex.getMessage(), 404),
+            HttpStatus.NOT_FOUND
         );
     }
 }

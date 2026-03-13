@@ -1,4 +1,4 @@
-package com.TodoList.TodoList.DTOs;
+package com.TodoList.TodoList.DTOs.responses;
 
 public class UserResponce {
     private String username;

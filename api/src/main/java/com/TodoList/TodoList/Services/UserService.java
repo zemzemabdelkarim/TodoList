@@ -3,7 +3,7 @@ package com.TodoList.TodoList.Services;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.TodoList.TodoList.DTOs.CreateUserRequest;
+import com.TodoList.TodoList.DTOs.requests.CreateUserRequest;
 import com.TodoList.TodoList.Exceptions.EmailAlreadyExistsException;
 import com.TodoList.TodoList.Exceptions.PasswordMismatchException;
 import com.TodoList.TodoList.Exceptions.UsernameAlreadyExistsException;

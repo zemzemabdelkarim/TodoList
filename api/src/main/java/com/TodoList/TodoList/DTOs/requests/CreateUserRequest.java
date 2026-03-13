@@ -1,4 +1,4 @@
-package com.TodoList.TodoList.DTOs;
+package com.TodoList.TodoList.DTOs.requests;
 
 public class CreateUserRequest {
     private String email;

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TodoList.TodoList.DTOs.CreateUserRequest;
-import com.TodoList.TodoList.DTOs.UserResponce;
+import com.TodoList.TodoList.DTOs.requests.CreateUserRequest;
+import com.TodoList.TodoList.DTOs.responses.UserResponce;
 import com.TodoList.TodoList.Models.User;
 import com.TodoList.TodoList.Services.UserService;
 

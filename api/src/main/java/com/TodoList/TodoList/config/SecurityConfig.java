@@ -20,7 +20,11 @@ public class SecurityConfig {
         http
         .cors(cors -> {})
         .csrf(csfr -> csfr.disable())
-            .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/tasks", "/api/v1/users").permitAll()
+            .authorizeHttpRequests(auth -> auth.requestMatchers(
+                "/api/v1/tasks",
+                "/api/v1/users",
+                "/api/v1/auth/*"
+            ).permitAll()
             .anyRequest().authenticated());
         return http.build();
     }
