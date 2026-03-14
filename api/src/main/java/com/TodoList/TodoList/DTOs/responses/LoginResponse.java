@@ -2,11 +2,11 @@ package com.TodoList.TodoList.DTOs.responses;
 
 public class LoginResponse {
     private String token;
-    private UserResponce userResponce;
+    private UserResponse userResponse;
 
-    public LoginResponse(String token, UserResponce userResponce) {
+    public LoginResponse(String token, UserResponse userResponse) {
         this.token = token;
-        this.userResponce = userResponce;
+        this.userResponse = userResponse;
     }
 
     public LoginResponse() {
@@ -20,12 +20,12 @@ public class LoginResponse {
         this.token = token;
     }
 
-    public UserResponce getUserResponce() {
-        return userResponce;
+    public UserResponse getUserResponse() {
+        return userResponse;
     }
 
-    public void setUserResponce(UserResponce userResponce) {
-        this.userResponce = userResponce;
+    public void setUserResponse(UserResponse userResponse) {
+        this.userResponse = userResponse;
     }
 
 }

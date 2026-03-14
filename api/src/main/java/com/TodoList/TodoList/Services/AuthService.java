@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.TodoList.TodoList.DTOs.requests.LoginRequest;
 import com.TodoList.TodoList.DTOs.responses.LoginResponse;
-import com.TodoList.TodoList.DTOs.responses.UserResponce;
+import com.TodoList.TodoList.DTOs.responses.UserResponse;
 import com.TodoList.TodoList.Exceptions.UserNotFoundException;
 import com.TodoList.TodoList.Exceptions.WrongPasswordException;
 import com.TodoList.TodoList.Models.User;
@@ -38,7 +38,7 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(user.getId());
         
-        UserResponce userResponce = new UserResponce(
+        UserResponse userResponce = new UserResponse(
             user.getId(),
             user.getEmail(),
             user.getUsername()

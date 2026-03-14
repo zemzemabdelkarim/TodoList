@@ -1,13 +1,13 @@
 package com.TodoList.TodoList.DTOs.responses;
 
-public class UserResponce {
+public class UserResponse {
     private String username;
     private String email;
     private Integer id;
 
-    public UserResponce(){}
+    public UserResponse(){}
 
-    public UserResponce(Integer id,String email, String username){
+    public UserResponse(Integer id,String email, String username){
         this.id = id;
         this.email = email;
         this.username = username;
