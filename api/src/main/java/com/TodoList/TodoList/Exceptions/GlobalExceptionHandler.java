@@ -55,4 +55,14 @@ public class GlobalExceptionHandler {
             HttpStatus.NOT_FOUND
         );
     }
+    
+    @ExceptionHandler(WrongPasswordException.class)
+    public ResponseEntity<ErrorResponse> handleWrongPasswordException(
+        WrongPasswordException ex
+    ){
+        return new ResponseEntity<>(
+            new ErrorResponse(ex.getMessage(), 401),
+            HttpStatus.UNAUTHORIZED
+        );
+    }
 }
