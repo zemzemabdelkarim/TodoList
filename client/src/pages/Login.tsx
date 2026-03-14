@@ -1,20 +1,50 @@
-import { Link } from "react-router-dom";
-import type { User } from "../types/User";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState, type ChangeEvent, } from "react";
+import { login } from "../api/userAuth";
+import type { LoginRequest } from "../types/DTO/requests/LoginRequest";
+import type { LoginResponse } from "../types/DTO/responses/LoginResponse";
+import axios from "axios";
+import type { ErrorMessage } from "../types/DTO/responses/ErrorMessage";
+import { useAppDispatch } from "../redux/hooks";
+import { setToken, setUser } from "../redux/userSlice";
 // I was going to test redux in Sign up please fix this
 
 export default function Login() {
-  const [formData, setFormData] = useState<User>({
-    id: -2,
-    username: "",
-    email: "",
+  const [resData, setResData] = useState<LoginResponse | null>()
+  const [formData, setFormData] = useState<LoginRequest>({
+    emailOrUsername: "",
+    password: ""
   });
+  const [error, setError] = useState<ErrorMessage | null>()
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFormData({...formData, [e.target.id as keyof User]: e.target.value});
+    setFormData({ ...formData, [e.target.id as keyof LoginRequest]: e.target.value });
   }
 
-  useEffect(() => {console.log("FormData =  ", formData)}, [formData]);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const data = await login(formData);
+      setResData(data);
+      
+      dispatch(setUser(data.userResponse));
+      dispatch(setToken(data.token));
+      navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data || { message: "Login error!", status: 0 };
+        setError(message);
+      } else {
+        setError({ message: "Something went wrong!", status: 0 });
+      }
+    }
+  }
+
+  useEffect(() => { console.log("resData = ", resData) }, [resData]);
+  useEffect(() => { console.log("FormData =  ", formData) }, [formData]);
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
 
@@ -35,22 +65,34 @@ export default function Login() {
           </p>
         </div>
 
+        {(error && (error.status != 404 && error.status != 401)) && (
+          <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg mb-4">
+            {error.message}
+          </div>
+        )}
+
         {/* Form */}
-        <form className="space-y-5">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+        >
 
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
+              Email or Username
             </label>
 
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="emailOrUsername"
               onChange={handleInputChange}
               placeholder="you@example.com"
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
             />
+            {(error && error.status == 404) && (
+              <span className="text-red-400">{error.message}</span>
+            )}
           </div>
 
           {/* Password */}
@@ -66,6 +108,9 @@ export default function Login() {
               placeholder="Enter your password"
               className="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
             />
+            {(error && error.status == 401) && (
+              <span className="text-red-400">{error.message}</span>
+            )}
           </div>
 
           {/* Login button */}
